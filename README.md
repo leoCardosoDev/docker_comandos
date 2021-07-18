@@ -1,10 +1,12 @@
-# Hello World Docker
+## Hello World Docker
   ### Roda e executa uma imagem
     docker run hello-world
   ### Ver container rodando
     docker ps
   ### Container criados mas sem rodar
     docker ps -a
+  ### Executando um servidor redirecionando a porta
+    docker run -p 8080:80 nginx
   ### Apagando um container
     docker rm CONTAINER_ID
   ### Mostrando images
@@ -13,8 +15,14 @@
     docker rmi IMAGE_ID
   ### Apagando todos os container
     docker rm $(docker ps -a -q) -f
+  ### Apagando todos os container simplificado
+    docker rm $(docker ps -aq) -f
+  ### Executando e apagando a imagem
+    docker run --rm nginx
+  ### Executando run liberando o terminal (detach)
+    docker run --rm -d nginx
 
-# Gerenciamento básico de container
+## Gerenciamento básico de container
   ### Instalando o nginx lastet
     docker run nginx
   ### Rodando processo em background
@@ -26,7 +34,7 @@
   ### Removendo um container rodando 
     docker rm CONTAINER_ID -f
 
-# Expondo Portas e Nomeando Containers
+## Expondo Portas e Nomeando Containers
   ### Nomeando um container my_nginx
     docker run -d --name my_nginx nginx:alpine
   ### Parando um container usando o nome
@@ -40,7 +48,7 @@
     docker run -d --name expond_port_80 -p 80:80 nginx:alpine
       # => Acesse http://localhost/
 
-# Executando comandos no container
+## Executando comandos no container
   ### Exibindo o container
     docker exec my_nginx uname -a
   ### Executando o bash
@@ -48,7 +56,7 @@
   ### Interagindo com o bash
     docker exec -it my_nginx bash
 
-# Iniciando com volumes
+## Iniciando com volumes
   ### Básico - Criando um volumes
     docker run -d --name my_nginx -p 8080:80 -v $(pwd):/usr/share/nginx/html nginx
   ### Listando volume
@@ -66,7 +74,7 @@
   ### Matando volume desatachado
     docker volume prune
 
-# Iniciando Networks
+## Iniciando Networks
   ### Listando Network
     docker network ls
   ## Crie 2 containers e tenta dar um ping
@@ -85,7 +93,7 @@
   ### Primeiro docker commit, depois docker login
     docker push NOME_DA_IMAGE(exemplo: leocardosodev/nginx-image)
 
-# Trabalhando com Dockerfile
+## Trabalhando com Dockerfile
   ## Criando Dockerfile
     FROM php:7.3.6-fpm-alpine3.9
     RUN apk add --no-cache shadow
@@ -106,8 +114,8 @@
 ### subindo a imagem para o DockerHub
     docker push leocardosodev/php-swoole:latest
 
-# Dockerfile criando image laravel
-  ## Criando Dockerfile com laravel
+## Dockerfile criando image laravel
+  ### Criando Dockerfile com laravel
     FROM php:7.3.6-fpm-alpine3.9
     WORKDIR /var/www
     RUN rm -rf /var/www/html
@@ -129,7 +137,7 @@
   ### Subindo a imagem com laravel para o DockerHub
     docker push leocardosodev/laravel
 
-# Iniciando com docker-compose
+## Iniciando com docker-compose
   ## Criando um projeto Laravel
     composer create-project --prefer-dist laravel/laravel laravel "5.8.*"
     cd laravel
