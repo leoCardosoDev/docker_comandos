@@ -59,6 +59,9 @@
 ## Iniciando com volumes
   ### Básico - Criando um volumes
     docker run -d --name my_nginx -p 8080:80 -v $(pwd):/usr/share/nginx/html nginx
+
+  ### Básico - Criando um volumes com mount
+    docker run -d --name my_nginx -p 8080:80 --mount type=bind,source="$(pwd)"/html,target=/usr/share/nginx/html nginx
   ### Listando volume
     docker volume ls
   ### Criando um volume
